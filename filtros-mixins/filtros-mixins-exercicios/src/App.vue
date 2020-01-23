@@ -1,12 +1,48 @@
 <template>
 	<div id="app">
 		<h1>Filtros & Mixins</h1>
+		<hr>
+		<p>{{ usuarioLogado }}</p>
+		<p>{{ cpfDoAluno | cpf | inverter }}</p>
+		<input type="text" :value="cpfDoAluno | cpf">
+		<hr>
+		<Frutas />
+		<hr>
+		<div>
+			<ul>
+				<li v-for="fruta in frutas" :key="fruta">{{ fruta }}</li>
+			</ul>
+			<input type="text" v-model="fruta" @keydown.enter="add">
+		</div>
 	</div>
 </template>
 
 <script>
-export default {
+import Frutas from './Frutas.vue'
+import FrutasMixin from './FrutasMixin'
+import UsuarioMixin from './UsuarioMixin'
 
+export default {
+	components: { Frutas },
+	mixins: [FrutasMixin, UsuarioMixin],
+	filters: {
+		cpf(valor) {
+			const arr = valor.split('')
+			arr.splice(3, 0, '.')
+			arr.splice(7, 0, '.')
+			arr.splice(11, 0, '-')
+			return arr.join('')
+		}
+	},
+	data() {
+		return {
+			cpfDoAluno: '090255988520',
+			frutas: ['abacate']
+		}
+	},
+	created() {
+        console.log('Created - no componente App.vue')
+    }
 }
 </script>
 
@@ -18,6 +54,9 @@ export default {
 	text-align: center;
 	color: #2c3e50;
 	margin-top: 60px;
+	font-size: 2.5rem;
+}
+input {
 	font-size: 2.5rem;
 }
 </style>
