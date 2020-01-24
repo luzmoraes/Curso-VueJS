@@ -16,10 +16,28 @@
 		<transition name="slide">
 			<b-alert variant="info" show v-if="exibir">{{ msg }}</b-alert>
 		</transition>
-		
-		<transition name="fade-slide" type="animation">
+		<!-- appear - aplica a animação no carregamento da aplicação -->
+		<transition name="fade-slide" type="animation" appear>
 			<b-alert variant="info" show v-if="exibir">{{ msg }}</b-alert>
 		</transition>
+
+		<!-- Nesse exemplo não vamos usar o padrão de animação do vue, vamos usar o Animate.css (importado na index) -->
+		<transition
+			enter-active-class="animated bounce"
+			leave-active-class="animated shake">
+			<b-alert variant="success" show v-if="exibir">{{ msg }}</b-alert>
+		</transition>
+
+		<hr>
+		<b-select v-model="tipoAnimacao" class="mb-4">
+			<option value="fade">Fade</option>
+			<option value="slide">Slide</option>
+		</b-select>
+
+		<transition :name="tipoAnimacao">
+			<b-alert variant="danger" show v-if="exibir">{{ msg }}</b-alert>
+		</transition>
+
 	</div>
 </template>
 
@@ -29,7 +47,8 @@ export default {
 	data() {
 		return {
 			msg: 'Uma mensagem de informação para o usuário!',
-			exibir: false
+			exibir: false,
+			tipoAnimacao: 'fade'
 		}
 	}
 }
