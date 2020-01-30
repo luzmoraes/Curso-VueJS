@@ -1,0 +1,42 @@
+<template>
+  <div class="usuario-detalhe">
+    <h3>usuário Detalhe</h3>
+    <p><strong>Código:</strong> {{ id }}</p>
+    <!-- <router-link tag="button" primario :to="`/usuario/${id}/editar`">Editar</router-link> -->
+    <!-- Ou -->
+    <!-- <router-link tag="button" primario :to="`/usuario/${$route.params.id}/editar`">Editar</router-link> -->
+    <!-- Usando o nome da rota  -->
+    <router-link tag="button" primario
+        :to="{ name: 'editarUsuario', params: { id },
+            query: { completo: true, lingua: 'pt' },
+            hash: '#rodape' }">Editar</router-link>
+  </div>
+</template>
+
+<script>
+export default {
+    props: ['id'],
+    beforeRouteEnter(to, from, next) {
+        console.log('dentro do componente -> usuário detalhe')
+        next()
+    }
+    // data() {
+    //     return {
+    //         id: this.$route.params.id
+    //     }
+    // },
+    // watch: {
+    //     $route(to, from) {
+    //         /*
+    //         to -> parâmetro novo
+    //         from -> parâmetro antigo
+    //         */
+    //         this.id = to.params.id
+    //     }
+    // },
+}
+</script>
+
+<style>
+
+</style>
