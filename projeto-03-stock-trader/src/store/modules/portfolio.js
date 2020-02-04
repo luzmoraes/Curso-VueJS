@@ -24,16 +24,20 @@ export default {
                 state.stocks.splice(state.stocks.indexOf(record), 1)
                 state.funds += stockPrice * quantity
             }
+        },
+        setPortfolio(state, portfolio) {
+            state.funds = portfolio.funds
+            state.stocks = portfolio.stockPortfolio ? portfolio.stockPortfolio : []
         }
     },
     actions: {
-        seelStock({ commit }, order) {
+        sellStock({ commit }, order) {
             commit('sellStock', order)
         }
     },
     getters: {
         /* o segundo parâmetro do getters é a lista de todos os getters */
-        stockPortifolio(state, getters) {
+        stockPortfolio(state, getters) {
             return state.stocks.map(stock => {
                 const record = getters.stocks.find(element => element.id == stock.id)
                 return {
